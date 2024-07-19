@@ -1,0 +1,64 @@
+Q1.  Create an API in Node.js with GET and POST methods: 
+       Create a Node.js API that manages a simple todo list. The API should have two endpoints: 
+      GET /todos: This endpoint should return a JSON array of all the todo items in the list. 
+    Each todo item should have an id, title, and completed property.
+    POST /addTodo: This endpoint should create a new todo item and add it to the list. The request body should be a       JSON object with a title property. The response should be a JSON object with the newly created todo item, including  its id.
+
+
+Ans.const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+let todoList = []; 
+app.use(bodyParser.json());
+
+app.get('/todos', (req, res) => {
+  res.json(todoList);
+});
+
+app.post('/addTodo', (req, res) => {
+  const { title } = req.body;
+
+  if (!title) {
+    return res.status(400).send('Missing required field: title');
+  }
+
+  const newTodo = {
+    id: Date.now(),
+    title,
+    completed: false,
+  };
+
+  todoList.push(newTodo);
+  res.status(201).json(newTodo);
+});
+
+app.listen(port, () => {
+  console.log(Server listening on port ${port});
+});
+
+Q2. Explain the concept of the DOM (Document Object Model) and its role in JavaScript. Discuss how to manipulate the DOM to create dynamic web pages, handle user interactions, and modify the visual representation of content.
+
+Ans.The DOM (Document Object Model) is a hierarchical representation of an HTML document. It provides a way for JavaScript to access, modify, and manipulate the structure, content, and styling of a web page. Here's how it works:
+
+The browser parses the HTML document and builds a tree-like structure in memory, where each node represents an element in the HTML.
+JavaScript can interact with the DOM to:
+Create elements: Add new elements to the page dynamically.
+Modify content: Change the text, attributes, or styles of existing elements.
+Remove elements: Delete elements from the page.
+Respond to user interactions: Handle events like clicks, key presses, form submissions, etc., to update the page dynamically.
+DOM Manipulation in JavaScript:
+
+JavaScript provides methods to access and modify the DOM:
+
+getElementById(): Gets an element by its unique ID.
+getElementsByTagName(): Gets all elements with a specific tag name.
+getElementsByClassName(): Gets all elements with a specific class name.
+querySelector():
+
+Q3: what is the difference between sort  method and map method? Give examples.
+
+Ans.In JavaScript, map() is a method of the Array object. It creates a new array by calling a function on every element of the original array and storing the results in a new array. map() returns the new array, and the original array is unchanged.
+The sort() method of Array instances sorts the elements of an array in place and returns the reference to the same array, now sorted.
